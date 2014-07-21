@@ -2,6 +2,9 @@
 
 > Send coverage information to codeclimate
 
+This is my first grunt plugin.
+It should work as advertised, but I didn't test anything.
+
 ## Getting Started
 This plugin requires Grunt.
 
