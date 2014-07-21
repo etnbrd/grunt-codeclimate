@@ -1,6 +1,6 @@
 {
   "name": "grunt-codeclimate",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "description": "Send coverage information to codeclimate",
   "repository": "",
   "author": {

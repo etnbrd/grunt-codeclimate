@@ -8,8 +8,9 @@
 
 'use strict';
 
-var Formatter = require("../lib/formatter"),
-    client    = require('../lib/http_client');
+var Formatter = require('../lib/formatter'),
+    client    = require('../lib/http_client'),
+    fs        = require('fs')
 
 module.exports = function (grunt) {
 
@@ -18,22 +19,25 @@ module.exports = function (grunt) {
 
   grunt.registerTask('codeclimate', 'Send coverage information to codeclimate', function () {
 
-    var options = this.options();
+    var options = this.options(),
+        done = this.async();
 
     if (options.file && options.token) {
-      require('fs').readFile(options.file, function(err, file) {
-          formatter = new Formatter()
-          formatter.format(input, function(err, json) {
-          if (err) {
-            console.error("A problem occurred parsing the lcov data", err);
-          } else {
 
-            json['repo_token'] = options.token || process.env.CODECLIMATE_REPO_TOKEN;
+      var formatter = new Formatter()
+      formatter.format(options.file, function(err, json) {
 
-            client.postJson(json);
-          }
-        });
-      })
+        console.log('trc')
+
+        if (err) {
+          console.log("A problem occurred parsing the lcov data", err);
+        } else {
+
+          json['repo_token'] = options.token || process.env.CODECLIMATE_REPO_TOKEN;
+
+          var res = client.postJson(json, done);
+        }
+      });
     }
   });
 };
