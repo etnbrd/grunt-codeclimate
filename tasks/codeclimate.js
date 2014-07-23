@@ -8,9 +8,8 @@
 
 'use strict';
 
-var Formatter = require('../lib/formatter'),
-    client    = require('../lib/http_client'),
-    fs        = require('fs')
+var codeclimate = require('javascript-test-reporter'),
+    fs = require('fs');
 
 module.exports = function (grunt) {
 
@@ -23,20 +22,16 @@ module.exports = function (grunt) {
         done = this.async();
 
     if (options.file && options.token) {
+      grunt.log.write('Sending coverage data...');
+      codeclimate(options.file, options.token, function(err, code) {
+        if (err)
+          grunt.log.error('Error : ', err);
+        else if (code !== 200)
+          grunt.log.error('Error, received code ' + code);
+        else
+          grunt.log.ok();
 
-      var formatter = new Formatter()
-      formatter.format(options.file, function(err, json) {
-
-        console.log('trc')
-
-        if (err) {
-          console.log("A problem occurred parsing the lcov data", err);
-        } else {
-
-          json['repo_token'] = options.token || process.env.CODECLIMATE_REPO_TOKEN;
-
-          var res = client.postJson(json, done);
-        }
+        done();
       });
     }
   });
