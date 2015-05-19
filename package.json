@@ -2,7 +2,10 @@
   "name": "grunt-codeclimate",
   "version": "0.0.2",
   "description": "Send coverage information to codeclimate",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/etnbrd/grunt-codeclimate.git"
+  },
   "author": {
     "name": "Etienne Brodu",
     "email": "etn@etnbrd.com",
