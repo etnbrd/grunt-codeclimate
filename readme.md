@@ -5,6 +5,9 @@
 This is my first grunt plugin.
 It should work as advertised, but I didn't test anything.
 
+/!\ Warning : this module is broken until this pull request is merged :
+https://github.com/codeclimate/javascript-test-reporter/pull/7
+
 ## Getting Started
 This plugin requires Grunt.
 
